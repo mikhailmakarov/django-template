@@ -4,3 +4,5 @@ __pycache__/
 venv/
 project/static/*
 project/db.sqlite3
+logs/*
+!logs/.gitignore
