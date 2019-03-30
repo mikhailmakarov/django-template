@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 .idea
+.env
 venv/
 project/static/*
 project/db.sqlite3
