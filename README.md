@@ -17,6 +17,7 @@ It uses:
 2. Specify secret key in .env file
 3. docker-compose up
 4. Open connection to uwsgi container and apply deployment script for django
+
 	0. Open a new terminal
 	1. docker ps
 	2. docker exec -it <place your container hash> /bin/bash
