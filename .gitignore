@@ -7,3 +7,5 @@ project/static/*
 project/db.sqlite3
 logs/*
 !logs/.gitignore
+deploy/uwsgi.pid
+deploy/uwsgi.socket
