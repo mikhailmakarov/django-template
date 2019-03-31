@@ -1,0 +1,46 @@
+version: '2'
+services:
+  database:
+    image: postgres:9.6.12
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+    networks:
+      - database_network
+  uwsgi:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./project:/var/www/django_project/project
+      - ./deploy:/var/www/django_project/deploy
+      - ./logs:/var/www/django_project/logs
+    networks:
+      - database_network
+      - nginx_network
+# Uncomment for development
+#    ports:
+#      - 8000:8000
+    depends_on:
+      - database
+  nginx:
+    image: nginx:1.15.10
+    volumes:
+      - ./deploy:/var/www/django_project/deploy
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./logs:/var/www/django_project/logs
+      - ./project/static:/var/www/django_project/project/static
+    networks:
+      - nginx_network
+    ports:
+      - 80:80
+    depends_on:
+      - uwsgi
+networks:
+  nginx_network:
+    driver: bridge
+  database_network:
+    driver: bridge
+volumes:
+  dbdata:
